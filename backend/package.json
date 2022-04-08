@@ -1,0 +1,31 @@
+{
+  "name": "challenge-fullstack",
+  "version": "1.0.0",
+  "description": "Challende +A Educação",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedro-darde/challenge-full-stack-web.git"
+  },
+  "author": "pedro.darde",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pedro-darde/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/pedro-darde/challenge-full-stack-web#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "pg": "^8.7.3",
+    "typeorm": "^0.2.41"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.3"
+  }
+}
