@@ -7,7 +7,7 @@ import { Student } from "../models/student";
 class Students {
   public async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const { document, email, name } = req.query;
+      const { document, email, name, limit, page, sortBy } = req.query;
 
       const repo = Students.getRepo();
       let query: SelectQueryBuilder<Student> = repo.createQueryBuilder();
@@ -30,10 +30,19 @@ class Students {
         });
       }
 
-      const students = await query.getMany();
+      const take: number = parseInt(`${limit}`);
+      const currentPage: number = parseInt(`${page}`);
+      const skip = take * (currentPage - 1);
 
-      //TODO - Fazer a consulta paginada
-      return res.status(200).json({ students });
+      query.take(take);
+      query.skip(skip);
+
+      // todo Sort-by
+      const students = await query.getMany();
+      const totalStudents = await query.getCount();
+      const numberOfPages = Math.ceil(totalStudents / take);
+      
+      return res.status(200).json({ students, totalStudents, numberOfPages });
     } catch (error) {
       next(error);
     }
