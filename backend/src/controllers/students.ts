@@ -1,6 +1,6 @@
 import { validate } from "class-validator";
 import { NextFunction, Request, Response } from "express";
-import { getCustomRepository, getRepository, Repository } from "typeorm";
+import { getRepository } from "typeorm";
 import { ValidationExcpetion } from "../errors/validation-expection";
 import { Student } from "../models/student";
 
@@ -34,15 +34,23 @@ class Students {
     }
   }
 
-  public async edit(req: Request, res: Response, next: NextFunction) {
+  public async update(req: Request, res: Response, next: NextFunction) {
     try {
+      const { id, email, birth_date, last_name, name } = req.body;
+      const repo = Students.getRepo();
+      const student = await repo.findOneOrFail(id);
+      Object.assign(student, { email, birth_date, last_name, name });
+      
+      await repo.save(student);
+
+      return res.status(204).send();
     } catch (error) {
       next(error);
     }
   }
 
-  static toClass(user: any) {
-    return this.getRepo().create(user);
+  static toClass(student: any) {
+    return this.getRepo().create(student);
   }
 
   static getRepo() {
