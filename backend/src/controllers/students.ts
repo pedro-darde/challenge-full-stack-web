@@ -1,10 +1,44 @@
 import { validate } from "class-validator";
 import { NextFunction, Request, Response } from "express";
-import { getRepository } from "typeorm";
+import { getRepository, SelectQueryBuilder } from "typeorm";
 import { ValidationExcpetion } from "../errors/validation-expection";
 import { Student } from "../models/student";
 
 class Students {
+  public async list(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { document, email, name } = req.query;
+
+      const repo = Students.getRepo();
+      let query: SelectQueryBuilder<Student> = repo.createQueryBuilder();
+
+      if (document) {
+        query = query.andWhere("LOWER(document) LIKE :document", {
+          document: `%${document.toString().toLowerCase()}%`,
+        });
+      }
+
+      if (email) {
+        query = query.andWhere("LOWER(email) LIKE :email", {
+          email: `%${email.toString().toLowerCase()}%`,
+        });
+      }
+
+      if (name) {
+        query = query.andWhere("LOWER(name) LIKE :name", {
+          name: `%${name.toString().toLowerCase()}%`,
+        });
+      }
+
+      const students = await query.getMany();
+
+      //TODO - Fazer a consulta paginada
+      return res.status(200).json({ students });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public async create(req: Request, res: Response, next: NextFunction) {
     try {
       let { student } = req.body;
