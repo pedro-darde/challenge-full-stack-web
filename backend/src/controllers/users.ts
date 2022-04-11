@@ -17,7 +17,17 @@ class Users {
 
       return res
         .status(201)
-        .json({ message: "Usuário inserido com sucesso", data: [user] });
+        .json({ message: "Usuário inserido com sucesso", user_id: user.id });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async show(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const user = await Users.getRepo().findOneOrFail(id);
+      return res.status(200).json({ message: "Registro encontrado", user });
     } catch (error) {
       next(error);
     }
