@@ -41,7 +41,7 @@ class Students {
       const students = await query.getMany();
       const totalStudents = await query.getCount();
       const numberOfPages = Math.ceil(totalStudents / take);
-      
+
       return res.status(200).json({ students, totalStudents, numberOfPages });
     } catch (error) {
       next(error);
