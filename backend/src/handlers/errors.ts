@@ -23,7 +23,7 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
 
   return response
     .status(500)
-    .json({ message: "Internval server error", errors: [error] });
+    .json({ message: "Internval server error", errors: [] });
 };
 
 export default errorHandler;

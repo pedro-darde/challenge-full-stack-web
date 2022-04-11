@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { IsEmail, IsNotEmpty } from "class-validator";
 import { UniqueValidator } from "../validators/unique-constraint";
 import { CpfValidator } from "../validators/cpf-validator";
-@Entity("user")
+@Entity("users")
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -19,6 +19,7 @@ export class User {
 
   @Column()
   @IsEmail({}, { message: "O email informado não é válido." })
+  @IsNotEmpty({ message: "Você deve informar o email." })
   email: string;
 
   @Column()
@@ -33,6 +34,6 @@ export class User {
   @IsNotEmpty({ message: "Por favor informe um CPF." })
   document: string;
 
-  @Column()
+  @Column({ default: 'CURRENT_TIMESTAMP'})
   created_at: string;
 }

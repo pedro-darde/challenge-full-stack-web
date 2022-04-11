@@ -11,7 +11,6 @@ class Users {
       user = Users.toClass(user);
 
       const errors = await validate(user, { stopAtFirstError: false });
-
       if (errors.length) throw new ValidationExcpetion(errors);
 
       user = await Users.getRepo().save(user);
