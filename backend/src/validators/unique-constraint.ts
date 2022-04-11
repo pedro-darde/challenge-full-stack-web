@@ -16,6 +16,7 @@ export class UniqueOnDatabaseExistConstraint
     const entity = args.object[`class_entity_${args.property}`];
     /* @ts-ignore*/
     const req_id = args.object["id"] || -1;
+    if (req_id === -1) return false;
     const items = await getRepository(entity).findAndCount({
       [args.property]: value,
       id: Not(req_id),
