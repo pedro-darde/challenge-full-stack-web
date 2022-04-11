@@ -2,8 +2,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { IsEmail, IsNotEmpty } from "class-validator";
 import { UniqueValidator } from "../validators/unique-constraint";
 import { CpfValidator } from "../validators/cpf-validator";
-@Entity("users")
-export class User {
+@Entity("students")
+export class Student {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,16 +24,16 @@ export class User {
 
   @Column()
   @IsNotEmpty({ message: "Você deve informar o Registro Acadêmico (RA)." })
-  @UniqueValidator(User, {
+  @UniqueValidator(Student, {
     message: "Já existe um aluno com o Registro Acadêmico (RA) informado.",
   })
   ra: string;
 
   @Column()
-  @CpfValidator(User)
+  @CpfValidator(Student)
   @IsNotEmpty({ message: "Por favor informe um CPF." })
   document: string;
 
-  @Column({ default: 'CURRENT_TIMESTAMP'})
+  @Column({ default: "CURRENT_TIMESTAMP" })
   created_at: string;
 }
