@@ -40,8 +40,23 @@ class Students {
       const repo = Students.getRepo();
       const student = await repo.findOneOrFail(id);
       Object.assign(student, { email, birth_date, last_name, name });
-      
+
       await repo.save(student);
+
+      return res.status(204).send();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+
+      const repo = Students.getRepo();
+
+      const student = await repo.findOneOrFail(id);
+      await repo.delete(student);
 
       return res.status(204).send();
     } catch (error) {
