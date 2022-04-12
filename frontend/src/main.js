@@ -4,6 +4,7 @@ import router from "./router";
 import vuetify from "./plugins/vuetify";
 import "vuetify/dist/vuetify.min.css"; // Ensure you are using css-loader
 import { VueMaskDirective } from "v-mask";
+
 const files = require.context("./", true, /\.vue$/i);
 files
   .keys()

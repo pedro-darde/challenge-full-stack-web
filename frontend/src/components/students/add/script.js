@@ -1,7 +1,10 @@
 import parseDate from "../../../filters/parseDate";
 import cpfValidator from "../../../validators/cpf";
 import moment from "moment";
+import { studentService } from "../../../services/student";
+import swal from "../../../mixins/swal";
 export default {
+  mixins: [swal],
   data() {
     return {
       valid: false,
@@ -23,8 +26,20 @@ export default {
     };
   },
   methods: {
-    validate() {
-      this.$refs.form.validate();
+    async submit() {
+      this.student.birth_date = moment(
+        this.student.birth_date_formatted,
+        "DD/MM/YYYY"
+      ).format("YYYY-MM-DD");
+
+      const res = await studentService.create(this.student);
+      if (res.type === "error") {
+        const errors = res.err?.response?.data?.errors || ["Ocorreu um erro intero"];
+        this.showErrorSwal(errors.join(','));
+      } else {
+        this.success();
+        this.$router.push("/students");
+      }
     },
   },
   watch: {
@@ -32,7 +47,6 @@ export default {
       this.student.birth_date_formatted = parseDate(newValue);
     },
     student: {
-      deep: true,
       handler(student) {
         if (
           student.name &&
@@ -43,6 +57,7 @@ export default {
           this.canCreate = true;
         }
       },
+      deep: true,
     },
   },
 };

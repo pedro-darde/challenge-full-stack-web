@@ -1,5 +1,5 @@
 <template>
-  <v-form :valid="valid" ref="form">
+  <v-form :valid="valid" ref="form" @submit.prevent="submit">
     <v-container>
       <v-row>
         <v-col cols="12" md="6">
