@@ -10,7 +10,7 @@ class Students {
       const { document, email, name, limit, page, sortBy } = req.query;
       const repo = Students.getRepo();
       let query: SelectQueryBuilder<Student> = repo.createQueryBuilder();
-        
+
       if (document) {
         query = query.andWhere("LOWER(document) LIKE :document", {
           document: `%${document.toString().toLowerCase()}%`,
@@ -79,10 +79,13 @@ class Students {
 
   public async update(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id, email, birth_date, last_name, name } = req.body;
+      const { id, email, last_name, name } = req.body;
       const repo = Students.getRepo();
       const student = await repo.findOneOrFail(id);
-      Object.assign(student, { email, birth_date, last_name, name });
+      Object.assign(student, { email, last_name, name });
+
+      const errors = await validate(student, { stopAtFirstError: false });
+      if (errors.length) throw new ValidationExcpetion(errors);
 
       await repo.save(student);
 
@@ -99,7 +102,7 @@ class Students {
       const repo = Students.getRepo();
 
       const student = await repo.findOneOrFail(id);
-      await repo.delete(student);
+      await repo.remove(student);
 
       return res.status(204).send();
     } catch (error) {

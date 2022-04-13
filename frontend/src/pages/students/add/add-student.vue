@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <page-title-component title="Adicionar estudante" />
-    <add-student-component @userCreated="userCreated" />
+    <add-student-component @studentCreated="studentCreated" />
   </v-container>
 </template>
 

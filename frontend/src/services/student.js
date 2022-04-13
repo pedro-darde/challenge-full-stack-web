@@ -39,6 +39,25 @@ class StudentService {
       return { type: "error", err };
     }
   }
+
+  async edit(data) {
+    try {
+      const res = await this.#axiosPlugin.patch(this.#modelName, data);
+      return { type: "success", data: res.data };
+    } catch (err) {
+      return { type: "error", err };
+    }
+  }
+
+  async delete(id) {
+    try {
+      const res = await this.#axiosPlugin.delete(this.#modelName, id);
+
+      return { type: "success", data: res.data };
+    } catch (err) {
+      return { type: "error", err };
+    }
+  }
 }
 
 export const studentService = new StudentService();

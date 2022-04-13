@@ -1,6 +1,6 @@
 export default {
   methods: {
-    userCreated() {
+    studentCreated() {
       this.$router.push("/students");
     },
   },

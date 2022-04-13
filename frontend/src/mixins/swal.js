@@ -9,7 +9,7 @@ export default {
         confirmButtonText: "Vou corrigir!",
       }).fire({ title: error });
     },
-    success() {
+    success(title = "Sucesso") {
       Swal.mixin({
         toast: true,
         position: "top-end",
@@ -20,7 +20,7 @@ export default {
           toast.addEventListener("mouseenter", Swal.stopTimer);
           toast.addEventListener("mouseleave", Swal.resumeTimer);
         },
-      }).fire({ icon: "success", title: "Successo" });
+      }).fire({ icon: "success", title: title });
     },
   },
 };

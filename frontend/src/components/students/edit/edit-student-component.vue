@@ -40,7 +40,7 @@
       <v-btn
         class="mr-4"
         type="submit"
-        :disabled="!canCreate"
+        :disabled="!canUpdate"
         color="primary"
         :loading="loading"
       >

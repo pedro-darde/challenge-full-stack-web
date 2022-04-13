@@ -1,7 +1,10 @@
 import { studentService } from "../../../services/student";
 import moment from "moment";
 import { debounce } from "../../../helpers/debounce";
+import Swal from "sweetalert2";
+import swal from "../../../mixins/swal";
 export default {
+  mixins: [swal],
   data() {
     return {
       tableOptions: {
@@ -64,6 +67,26 @@ export default {
     editStudent(id) {
       this.$router.push(`/students/edit/${id}`);
     },
+    removeStudent(id) {
+      Swal.fire({
+        title: "Você tem certeza ?",
+        html: "Ao aceitar o estudante será removido do sistema!",
+        icon: "warning",
+        confirmButtonText: "Sim",
+        confirmButtonColor: "error",
+        showCancelButton: true,
+      }).then((res) => {
+        if (res.isConfirmed) {
+          this.loading = true;
+          studentService.delete(id).then((res) => {
+            if (res.type === "success") {
+              this.success("Estudante removido");
+              this.paginate();
+            }
+          });
+        }
+      });
+    },
   },
   watch: {
     tableOptions: {
@@ -74,6 +97,7 @@ export default {
     },
     filter: {
       handler: debounce(function (val) {
+        this.tableOptions.page = 1;
         this.loading = true;
         this.paginate();
       }, 750),

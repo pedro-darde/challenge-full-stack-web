@@ -66,7 +66,7 @@
           <v-btn class="mx-2" fab dark small color="primary" @click="editStudent(item.id)">
             <v-icon> mdi-pencil </v-icon>
           </v-btn>
-          <v-btn class="mx-2" fab dark small color="error">
+          <v-btn class="mx-2" fab dark small color="error" @click="removeStudent(item.id)">
             <v-icon> mdi-delete </v-icon>
           </v-btn>
         </template>

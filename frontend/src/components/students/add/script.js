@@ -37,7 +37,7 @@ export default {
         this.showErrorSwal(errors.join(","));
       } else {
         this.success();
-        this.$emit("userCreated");
+        this.$emit("studentCreated");
       }
     },
     goBack() {

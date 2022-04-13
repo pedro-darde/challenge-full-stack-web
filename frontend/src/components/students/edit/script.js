@@ -1,15 +1,14 @@
-import parseDate from "../../../filters/parseDate";
-import moment from "moment";
 import { studentService } from "../../../services/student";
 import swal from "../../../mixins/swal";
 export default {
   mixins: [swal],
   data() {
     return {
-      canCreate: true,
+      canUpdate: true,
       loading: false,
       valid: false,
       student: {
+        id: "",
         ra: "",
         document: "",
         name: "",
@@ -24,14 +23,9 @@ export default {
   methods: {
     async submit() {
       this.loading = true;
-      this.student.birth_date = moment(
-        this.student.birth_date_formatted,
-        "DD/MM/YYYY"
-      ).format("YYYY-MM-DD");
-
-      const res = await studentService.create(this.student);
-      this.loading = true;
-
+      const { name, last_name, email, id } = this.student;
+      const res = await studentService.edit({ name, last_name, email, id });
+      this.loading = false;
       if (res.type === "error") {
         const errors = res.err?.response?.data?.errors || [
           "Ocorreu um erro intero",
@@ -39,7 +33,7 @@ export default {
         this.showErrorSwal(errors.join(","));
       } else {
         this.success();
-        this.$emit("userCreated");
+        this.$emit("studentEdited");
       }
     },
     goBack() {
@@ -54,14 +48,17 @@ export default {
       if (res.type === "success") {
         const { student } = res.data;
         this.student = student;
+        this.loading = false;
       }
     }
   },
   watch: {
     student: {
       handler(student) {
-        if (student.name && student.ra && /.+@.+/.test(student.email)) {
-          this.canCreate = true;
+        if (!student.name || !/.+@.+/.test(student.email)) {
+          this.canUpdate = false;
+        } else {
+          this.canUpdate = true;
         }
       },
       deep: true,
