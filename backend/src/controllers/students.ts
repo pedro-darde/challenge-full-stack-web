@@ -39,6 +39,8 @@ class Students {
       query.take(take);
       query.skip(skip);
 
+      query.orderBy("id", "DESC");
+
       // todo Sort-by
       const students = await query.getMany();
       const totalStudents = await query.getCount();

@@ -7,6 +7,7 @@ class StudentService {
   async create(student) {
     try {
       const res = await this.#axiosPlugin.post(this.#modelName, { student });
+      
       return { type: "success", data: res.data };
     } catch (err) {
       return { type: "error", err };
@@ -34,6 +35,7 @@ class StudentService {
   async getStudent(id) {
     try {
       const res = await this.#axiosPlugin.getById(this.#modelName, id);
+
       return { type: "success", data: res.data };
     } catch (err) {
       return { type: "error", err };
@@ -43,6 +45,7 @@ class StudentService {
   async edit(data) {
     try {
       const res = await this.#axiosPlugin.patch(this.#modelName, data);
+
       return { type: "success", data: res.data };
     } catch (err) {
       return { type: "error", err };

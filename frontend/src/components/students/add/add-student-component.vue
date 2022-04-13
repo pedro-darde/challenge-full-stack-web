@@ -45,12 +45,12 @@
         class="mr-4"
         type="submit"
         :disabled="!canCreate"
-        color="primary"
+        color="deep-purple accent-4 white--text font-weight-bold"
         :loading="loading"
       >
         Criar
       </v-btn>
-      <v-btn color="secondary" @click="goBack"> Voltar </v-btn>
+      <v-btn color="secondary font-weight-bold" @click="goBack"> Voltar </v-btn>
     </v-container>
   </v-form>
 </template>

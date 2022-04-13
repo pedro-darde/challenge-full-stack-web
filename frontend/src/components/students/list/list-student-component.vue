@@ -35,7 +35,11 @@
         </v-expansion-panels>
       </v-col>
       <v-col colos="12" sm="2" xs="2" md="2">
-        <v-btn color="primary" class="add-user-btn" @click="addStudent">
+        <v-btn
+          color="deep-purple accent-4 white--text font-weight-bold"
+          class="add-user-btn"
+          @click="addStudent"
+        >
           <v-icon>mdi-account-plus</v-icon>
           <span> Cadastrar estudante</span>
         </v-btn>
@@ -63,10 +67,24 @@
         no-results-text="Nenhum registro encontrado"
       >
         <template v-slot:item.actions="{ item }">
-          <v-btn class="mx-2" fab dark small color="primary" @click="editStudent(item.id)">
+          <v-btn
+            class="mx-2"
+            fab
+            dark
+            small
+            color="deep-purple accent-4 white--text font-weight-bold"
+            @click="editStudent(item.id)"
+          >
             <v-icon> mdi-pencil </v-icon>
           </v-btn>
-          <v-btn class="mx-2" fab dark small color="error" @click="removeStudent(item.id)">
+          <v-btn
+            class="mx-2"
+            fab
+            dark
+            small
+            color="error"
+            @click="removeStudent(item.id)"
+          >
             <v-icon> mdi-delete </v-icon>
           </v-btn>
         </template>

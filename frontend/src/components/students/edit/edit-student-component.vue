@@ -41,7 +41,7 @@
         class="mr-4"
         type="submit"
         :disabled="!canUpdate"
-        color="primary"
+        color="deep-purple accent-4 white--text font-weight-bold"
         :loading="loading"
       >
         Salvar
