@@ -16,20 +16,12 @@ class StudentService {
   async paginate(limit, page, filter = {}) {
     try {
       let query = { limit, page };
-      
-      const { document, email, name } = filter;
 
-      if (document) {
-        query["document"] = document;
-      }
-
-      if (email) {
-        query["email"] = email;
-      }
-
-      if (name) {
-        query["name"] = name;
-      }
+      Object.keys(filter).forEach((key) => {
+        if (filter[key]) {
+          query[key] = filter[key];
+        }
+      });
 
       const res = await this.#axiosPlugin.get(this.#modelName, query);
 

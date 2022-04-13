@@ -38,15 +38,9 @@ export default {
       this.$router.push("/students/add");
     },
     async paginate() {
-      console.log("aqui");
       const { page, itemsPerPage } = this.tableOptions;
-      const { document, email, name } = this.filter;
       this.loading = true;
-      const res = await studentService.paginate(itemsPerPage, page, {
-        document,
-        email,
-        name,
-      });
+      const res = await studentService.paginate(itemsPerPage, page, this.filter);
       this.loading = false;
 
       if (res.type === "success") {
