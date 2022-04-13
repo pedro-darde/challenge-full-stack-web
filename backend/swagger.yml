@@ -1,0 +1,164 @@
+openapi: "3.0.2"
+info:
+  title: "+A Educação"
+  version: "0.1"
+servers:
+  - url: http://localhost:3335/api
+paths:
+  /students:
+    get:
+      summary: Get Students
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: email
+          schema:
+            type: string
+        - in: query
+          name: document
+          schema:
+            type: string
+        - in: query
+          name: page
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: limit
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Students
+          content:
+            application/json:
+              example:
+                [
+                  {
+                    id: number,
+                    name: string,
+                    last_name: string,
+                    document: string,
+                    ra: string,
+                    email: string,
+                    created_at: string,
+                  },
+                ]
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              example: { message: "Internal server error" }
+    post:
+      summary: Create a student
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              {
+                student:
+                  {
+                    name: string,
+                    last_name: string,
+                    document: string,
+                    email: string,
+                    ra: string,
+                  },
+              }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              example:
+                {
+                  message: string,
+                  student:
+                    {
+                      id: number,
+                      last_name: string,
+                      document: string,
+                      email: string,
+                      ra: string,
+                      created_at: string,
+                    },
+                }
+        "422":
+          description: Validation Error
+          content:
+            application/json:
+              example: { message: Validation Error, errors: [string] }
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              example: { message: "Internal server error" }
+    patch:
+      summary: Partial update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              { id: number, name: string, last_name: string, email: string }
+      responses:
+        "204":
+          description: Ok
+        "302":
+          description: Entity not found
+          content:
+            application/json:
+              example: { message: Entity not found, errors: [string] }
+        "500":
+          description: Internal server error
+          content:
+            applcation/json:
+              example: { message: Internal server error, errors: [string] }
+  /students/{id}:
+    get:
+      summary: Find by id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: OK
+        "302":
+          description: Entity not found
+          content:
+            application/json:
+              example: { message: "Entity not found", errors: [string] }
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              example: { message: "Internal server error", errors: [string] }
+    delete:
+      summary: Delete by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: number
+      responses:
+        "204":
+          description: No Content
+        "302":
+          description: Entity not found
+          content:
+            application/json:
+              example: { message: "Entity not found", errors: [string] }
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              example: { message: "Internal server error", errors: [string] }
