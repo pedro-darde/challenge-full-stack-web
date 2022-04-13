@@ -8,7 +8,6 @@ class Students {
   public async list(req: Request, res: Response, next: NextFunction) {
     try {
       const { document, email, name, limit, page, sortBy } = req.query;
-
       const repo = Students.getRepo();
       let query: SelectQueryBuilder<Student> = repo.createQueryBuilder();
 
@@ -44,6 +43,7 @@ class Students {
 
       return res.status(200).json({ students, totalStudents, numberOfPages });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
