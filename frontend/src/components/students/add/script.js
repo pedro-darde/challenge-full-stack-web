@@ -11,8 +11,6 @@ export default {
       valid: false,
       canCreate: false,
       student: {
-        birth_date: "",
-        birth_date_formatted: moment(new Date()).format("DD/MM/YYYY"),
         ra: "",
         document: "",
         name: "",
@@ -29,11 +27,6 @@ export default {
   methods: {
     async submit() {
       this.loading = true;
-      this.student.birth_date = moment(
-        this.student.birth_date_formatted,
-        "DD/MM/YYYY"
-      ).format("YYYY-MM-DD");
-
       const res = await studentService.create(this.student);
       this.loading = true;
 
@@ -44,7 +37,7 @@ export default {
         this.showErrorSwal(errors.join(","));
       } else {
         this.success();
-        this.$emit('userCreated')
+        this.$emit("userCreated");
       }
     },
     goBack() {
@@ -52,9 +45,6 @@ export default {
     },
   },
   watch: {
-    "student.birth_date"(newValue) {
-      this.student.birth_date_formatted = parseDate(newValue);
-    },
     student: {
       handler(student) {
         if (

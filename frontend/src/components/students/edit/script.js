@@ -10,8 +10,6 @@ export default {
       loading: false,
       valid: false,
       student: {
-        birth_date: "",
-        birth_date_formatted: moment(new Date()).format("DD/MM/YYYY"),
         ra: "",
         document: "",
         name: "",
@@ -48,10 +46,18 @@ export default {
       this.$router.go(-1);
     },
   },
+  async mounted() {
+    this.loading = true;
+    const { id } = this.$route.params;
+    if (id) {
+      const res = await studentService.getStudent(id);
+      if (res.type === "success") {
+        const { student } = res.data;
+        this.student = student;
+      }
+    }
+  },
   watch: {
-    "student.birth_date"(newValue) {
-      this.student.birth_date_formatted = parseDate(newValue);
-    },
     student: {
       handler(student) {
         if (student.name && student.ra && /.+@.+/.test(student.email)) {
@@ -60,16 +66,5 @@ export default {
       },
       deep: true,
     },
-  },
-  async mounted() {
-    this.loading = true;
-    const { id } = this.$route.params;
-    if (id) {
-      const res = await studentService.getStudent(id);
-      if (res.type === "success") {
-        this.student = res.data.student;
-        this.loading = false
-      }
-    }
   },
 };

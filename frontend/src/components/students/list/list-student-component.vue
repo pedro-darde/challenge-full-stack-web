@@ -37,7 +37,7 @@
       <v-col colos="12" sm="2" xs="2" md="2">
         <v-btn color="primary" class="add-user-btn" @click="addStudent">
           <v-icon>mdi-account-plus</v-icon>
-          <span> Cadastrar aluno</span>
+          <span> Cadastrar estudante</span>
         </v-btn>
       </v-col>
     </v-row>

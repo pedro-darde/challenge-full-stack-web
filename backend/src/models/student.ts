@@ -15,9 +15,6 @@ export class Student {
   last_name: string;
 
   @Column()
-  birth_date: Date;
-
-  @Column()
   @IsEmail({}, { message: "O email informado não é válido." })
   @IsNotEmpty({ message: "Você deve informar o email." })
   email: string;
