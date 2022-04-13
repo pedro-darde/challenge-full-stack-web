@@ -15,7 +15,7 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
   }
 
   if (error instanceof EntityNotFoundError) {
-    return response.status(422).json({
+    return response.status(302).json({
       message: "Entity not found",
       errors: ["Não foi possível localizar o registro solicitado."],
     });
