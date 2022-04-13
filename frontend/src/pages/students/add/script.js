@@ -1,7 +1,7 @@
 export default {
   methods: {
-    createStudent(student) {
-      console.log(student);
+    userCreated() {
+      this.$router.push("/students");
     },
   },
 };

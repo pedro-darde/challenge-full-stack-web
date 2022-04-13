@@ -11,8 +11,8 @@ class AxiosPlugin {
     });
   }
 
-  getById(modelName, route, id) {
-    return this.#axiosClient.get(`${modelName}/${route}/${id}`);
+  getById(modelName, id) {
+    return this.#axiosClient.get(`${modelName}/${id}`);
   }
 
   post(modelName, data, config) {

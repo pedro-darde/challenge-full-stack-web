@@ -63,7 +63,7 @@
         no-results-text="Nenhum registro encontrado"
       >
         <template v-slot:item.actions="{ item }">
-          <v-btn class="mx-2" fab dark small color="primary">
+          <v-btn class="mx-2" fab dark small color="primary" @click="editStudent(item.id)">
             <v-icon> mdi-pencil </v-icon>
           </v-btn>
           <v-btn class="mx-2" fab dark small color="error">

@@ -10,7 +10,7 @@ class Students {
       const { document, email, name, limit, page, sortBy } = req.query;
       const repo = Students.getRepo();
       let query: SelectQueryBuilder<Student> = repo.createQueryBuilder();
-
+        
       if (document) {
         query = query.andWhere("LOWER(document) LIKE :document", {
           document: `%${document.toString().toLowerCase()}%`,

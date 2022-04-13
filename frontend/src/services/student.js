@@ -30,6 +30,15 @@ class StudentService {
       return { type: "error", err };
     }
   }
+
+  async getStudent(id) {
+    try {
+      const res = await this.#axiosPlugin.getById(this.#modelName, id);
+      return { type: "success", data: res.data };
+    } catch (err) {
+      return { type: "error", err };
+    }
+  }
 }
 
 export const studentService = new StudentService();

@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../pages/home.vue";
 import ListStudent from "../pages/students/list/list-students.vue";
 import AddStudent from "../pages/students/add/add-student.vue";
+import EditStudent from "../pages/students/edit/edit-student.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -23,6 +24,12 @@ const routes = [
     name: "add-student",
     component: AddStudent,
     meta: { title: "Adicionar estudante" },
+  },
+  {
+    path: "/students/edit/:id",
+    name: "edit-student",
+    component: EditStudent,
+    meta: { title: "Editar estudante" },
   },
 ];
 

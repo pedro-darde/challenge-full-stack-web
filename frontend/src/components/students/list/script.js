@@ -40,7 +40,11 @@ export default {
     async paginate() {
       const { page, itemsPerPage } = this.tableOptions;
       this.loading = true;
-      const res = await studentService.paginate(itemsPerPage, page, this.filter);
+      const res = await studentService.paginate(
+        itemsPerPage,
+        page,
+        this.filter
+      );
       this.loading = false;
 
       if (res.type === "success") {
@@ -57,8 +61,10 @@ export default {
         }));
       }
     },
+    editStudent(id) {
+      this.$router.push(`/students/edit/${id}`);
+    },
   },
-  async mounted() {},
   watch: {
     tableOptions: {
       handler() {
