@@ -32,7 +32,7 @@ export default {
         ];
         this.showErrorSwal(errors.join(","));
       } else {
-        this.success();
+        this.success("Estudante editado com sucesso");
         this.$emit("studentEdited");
       }
     },

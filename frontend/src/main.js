@@ -19,13 +19,11 @@ filters
     Vue.filter(key.split("/").pop().split(".")[0], filters(key).default)
   );
 
-const DEFAULT_TITLE = "Home";
-
 Vue.directive("mask", VueMaskDirective);
 
 router.afterEach((to, from) => {
   Vue.nextTick(() => {
-    document.title = to.meta.title || DEFAULT_TITLE;
+    document.title = to.meta.title || "Home";
   });
 });
 

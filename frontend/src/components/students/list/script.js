@@ -74,6 +74,7 @@ export default {
         icon: "warning",
         confirmButtonText: "Sim",
         confirmButtonColor: "error",
+        cancelButtonText: "Cancelar",
         showCancelButton: true,
       }).then((res) => {
         if (res.isConfirmed) {

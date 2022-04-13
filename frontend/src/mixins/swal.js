@@ -6,7 +6,12 @@ export default {
       Swal.mixin({
         toast: true,
         icon: "error",
+        timer: 2500,
         confirmButtonText: "Vou corrigir!",
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
       }).fire({ title: error });
     },
     success(title = "Sucesso") {

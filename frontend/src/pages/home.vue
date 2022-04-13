@@ -1,6 +1,7 @@
 <template>
   <div>
     <p>Seja bem vindo !</p>
+    <students-dashboard />
   </div>
 </template>
 

@@ -28,7 +28,7 @@ export default {
     async submit() {
       this.loading = true;
       const res = await studentService.create(this.student);
-      this.loading = true;
+      this.loading = false;
 
       if (res.type === "error") {
         const errors = res.err?.response?.data?.errors || [
@@ -36,7 +36,7 @@ export default {
         ];
         this.showErrorSwal(errors.join(","));
       } else {
-        this.success();
+        this.success('Estudante criado com sucesso');
         this.$emit("studentCreated");
       }
     },

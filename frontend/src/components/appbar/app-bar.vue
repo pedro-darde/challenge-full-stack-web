@@ -5,14 +5,16 @@
         <v-img
           alt="Logo"
           contain
-          src="@/assets/images/maisa.png"
+          :src="logo"
           transition="scale-transition"
           width="50"
         />
         <v-app-bar-nav-icon @click.stop="drawer = !drawer">
         </v-app-bar-nav-icon>
       </div>
-      <v-toolbar-title class="font-white bold"> Módulo Acadêmico </v-toolbar-title>
+      <v-toolbar-title class="font-white bold">
+        Módulo Acadêmico
+      </v-toolbar-title>
     </v-app-bar>
 
     <v-navigation-drawer
