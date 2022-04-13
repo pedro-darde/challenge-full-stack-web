@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <page-title-component title="Estudantes" />
-    <list-student-component :students="students" />
+    <list-student-component />
   </v-container>
 </template>
 

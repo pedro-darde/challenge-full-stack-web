@@ -83,10 +83,16 @@
           />
         </v-col>
       </v-row>
-      <v-btn class="mr-4" type="submit" :disabled="!canCreate" color="primary">
+      <v-btn
+        class="mr-4"
+        type="submit"
+        :disabled="!canCreate"
+        color="primary"
+        :loading="loading"
+      >
         Criar
       </v-btn>
-      <v-btn color="secondary"> Voltar </v-btn>
+      <v-btn color="secondary" @click="goBack"> Voltar </v-btn>
     </v-container>
   </v-form>
 </template>

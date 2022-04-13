@@ -7,6 +7,7 @@ export default {
   mixins: [swal],
   data() {
     return {
+      loading: false,
       valid: false,
       canCreate: false,
       student: {
@@ -27,19 +28,27 @@ export default {
   },
   methods: {
     async submit() {
+      this.loading = true;
       this.student.birth_date = moment(
         this.student.birth_date_formatted,
         "DD/MM/YYYY"
       ).format("YYYY-MM-DD");
 
       const res = await studentService.create(this.student);
+      this.loading = true;
+
       if (res.type === "error") {
-        const errors = res.err?.response?.data?.errors || ["Ocorreu um erro intero"];
-        this.showErrorSwal(errors.join(','));
+        const errors = res.err?.response?.data?.errors || [
+          "Ocorreu um erro intero",
+        ];
+        this.showErrorSwal(errors.join(","));
       } else {
         this.success();
         this.$router.push("/students");
       }
+    },
+    goBack() {
+      this.$router.go(-1);
     },
   },
   watch: {
