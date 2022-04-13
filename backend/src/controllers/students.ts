@@ -7,7 +7,11 @@ import { Student } from "../models/student";
 class Students {
   public async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const { document, email, name, limit, page, sortBy } = req.query;
+      let { document, email, name, limit, page, sortBy } = req.query;
+
+      if (!limit) limit = "10";
+      if (!page) page = "1";
+
       const repo = Students.getRepo();
       let query: SelectQueryBuilder<Student> = repo.createQueryBuilder();
 
@@ -32,7 +36,6 @@ class Students {
       const take: number = parseInt(`${limit}`);
       const currentPage: number = parseInt(`${page}`);
       const skip = take * (currentPage - 1);
-
       query.take(take);
       query.skip(skip);
 
