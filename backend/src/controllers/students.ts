@@ -1,9 +1,14 @@
 import { validate } from "class-validator";
-import { NextFunction, Request, Response } from "express";
-import { getRepository, SelectQueryBuilder } from "typeorm";
+import { NextFunction, query, Request, Response } from "express";
+import {
+  getRepository,
+  MoreThanOrEqual,
+  Raw,
+  SelectQueryBuilder,
+} from "typeorm";
 import { ValidationExcpetion } from "../errors/validation-expection";
 import { Student } from "../models/student";
-
+import moment from "moment";
 class Students {
   public async list(req: Request, res: Response, next: NextFunction) {
     try {
@@ -111,6 +116,58 @@ class Students {
 
       return res.status(204).send();
     } catch (error) {
+      next(error);
+    }
+  }
+
+  /*
+   * GET Students that were the last week
+   */
+  public async lastWeekStudents(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const repo = Students.getRepo();
+
+      const fifteenDaysAgo = moment(Date.now())
+        .subtract(7, "days")
+        .format("YYYY-MM-DD");
+
+      const [students, count] = await repo.findAndCount({
+        where: {
+          created_at: MoreThanOrEqual(fifteenDaysAgo),
+        },
+      });
+
+      return res.status(200).json({ count });
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
+  public async withSameData(req: Request, res: Response, next: NextFunction) {
+    try {
+      const repo = Students.getRepo();
+
+      const documents = repo.query(
+        "select count (s.id) as count, s.document from students s where s.document in (select st.document from students st  where st.id <> s.id) group by s.document"
+      );
+
+      const emails = repo.query(
+        "select count (s.id) as count, s.email from students s where s.email in (select st.email from students st  where st.id <> s.id) group by s.email"
+      );
+
+      const [cpfFiltered, emailsFiltered] = await Promise.all([
+        documents,
+        emails,
+      ]);
+
+      return res.status(200).json({ cpfFiltered, emailsFiltered });
+    } catch (error) {
+      console.log(error);
       next(error);
     }
   }

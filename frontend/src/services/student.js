@@ -7,7 +7,7 @@ class StudentService {
   async create(student) {
     try {
       const res = await this.#axiosPlugin.post(this.#modelName, { student });
-      
+
       return { type: "success", data: res.data };
     } catch (err) {
       return { type: "error", err };
@@ -55,6 +55,29 @@ class StudentService {
   async delete(id) {
     try {
       const res = await this.#axiosPlugin.delete(this.#modelName, id);
+
+      return { type: "success", data: res.data };
+    } catch (err) {
+      return { type: "error", err };
+    }
+  }
+  async lastWeekCount() {
+    try {
+      const res = await this.#axiosPlugin.get(
+        `last-${this.#modelName.substring(1)}`
+      );
+
+      return { type: "success", data: res.data };
+    } catch (err) {
+      return { type: "error", err };
+    }
+  }
+
+  async withRepeteadData() {
+    try {
+      const res = await this.#axiosPlugin.get(
+        `same-info-${this.#modelName.substring(1)}`
+      );
 
       return { type: "success", data: res.data };
     } catch (err) {
