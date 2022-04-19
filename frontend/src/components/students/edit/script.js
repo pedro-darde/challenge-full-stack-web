@@ -56,10 +56,10 @@ export default {
   watch: {
     student: {
       handler({ name, email }) {
-        if (!name || emailValidator(email)) {
-          this.canUpdate = false;
-        } else {
+        if (name && emailValidator(email)) {
           this.canUpdate = true;
+        } else {
+          this.canUpdate = false;
         }
       },
       deep: true,

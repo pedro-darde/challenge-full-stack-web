@@ -1,4 +1,4 @@
 export default function emailValidator(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /.+@.+/;
   return emailRegex.test(email);
 }
