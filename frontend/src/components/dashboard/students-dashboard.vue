@@ -20,7 +20,23 @@
         <v-card color="deep-purple accent-4" dark>
           <v-card-text>
             <div class="text--white font-weight-bold">Mesmo CPF</div>
-            <p class="text-h5 text--primary">{{ totalCpf }}</p>
+            <div clas="d-flex justify-space-between mb-6">
+              <span class="text-h5 text--primary">{{ totalCpf }}</span>
+              
+              <!-- <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="dark " dark v-bind="attrs" v-on="on">
+                    mdi-information
+                  </v-icon>
+                </template>
+                <ul>
+                  <li v-for="countAndCpf in cpfFiltered">
+                    {{ countAndCpf.document }} : {{ countAndCpf.count }} CPF'S
+                  </li>
+                </ul>
+              </v-tooltip -->
+              
+            </div>
             <div class="text--white font-weight-bold">Mesmo email</div>
             <p class="text-h5 text--primary">{{ totalEmail }}</p>
           </v-card-text>

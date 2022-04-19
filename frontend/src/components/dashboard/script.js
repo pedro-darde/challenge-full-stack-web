@@ -6,8 +6,8 @@ export default {
       countStudents: 0,
       totalEmail: 0,
       totalCpf: 0,
-      cpfFiltered: {},
-      emailFiltered: {},
+      cpfFiltered: [],
+      emailFiltered: [],
     };
   },
 
