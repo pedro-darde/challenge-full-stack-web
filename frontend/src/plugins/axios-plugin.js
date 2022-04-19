@@ -2,7 +2,11 @@ import axios from "axios";
 class AxiosPlugin {
   #axiosClient;
   constructor() {
-    this.#axiosClient = axios.create({ baseURL: "http://localhost:3337/api" });
+    this.#axiosClient = axios.create({
+      baseURL: "http://localhost:3337/api",
+      timeout: 15000,
+      timeoutErrorMessage: "Tempo limite de espera excedido",
+    });
   }
 
   get(modelName, query) {
