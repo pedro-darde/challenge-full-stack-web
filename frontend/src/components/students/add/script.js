@@ -1,8 +1,7 @@
-import parseDate from "../../../filters/parseDate";
 import cpfValidator from "../../../validators/cpf";
-import moment from "moment";
 import { studentService } from "../../../services/student";
 import swal from "../../../mixins/swal";
+import emailValidator from "../../../validators/email";
 export default {
   mixins: [swal],
   data() {
@@ -18,7 +17,7 @@ export default {
         email: "",
       },
       nameRules: [(v) => !!v || "Por favor informe o nome"],
-      emailRules: [(v) => /.+@.+/.test(v) || "Informe um e-mail válido"],
+      emailRules: [(v) => emailValidator(v) || "Informe um e-mail válido"],
       documentRules: [(v) => cpfValidator(v) || "O CPF informado não é válido"],
       raRules: [(v) => !!v || "Por favor informe um registro acadêmico (RA)"],
       menu: false,
@@ -36,7 +35,7 @@ export default {
         ];
         this.showErrorSwal(errors.join(","));
       } else {
-        this.success('Estudante criado com sucesso');
+        this.success("Estudante criado com sucesso");
         this.$emit("studentCreated");
       }
     },
@@ -46,13 +45,8 @@ export default {
   },
   watch: {
     student: {
-      handler(student) {
-        if (
-          student.name &&
-          cpfValidator(student.document) &&
-          student.ra &&
-          /.+@.+/.test(student.email)
-        ) {
+      handler({ name, document, email, ra }) {
+        if (name && cpfValidator(document) && ra && emailValidator(email)) {
           this.canCreate = true;
         }
       },
