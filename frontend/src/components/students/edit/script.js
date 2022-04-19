@@ -1,5 +1,6 @@
 import { studentService } from "../../../services/student";
 import swal from "../../../mixins/swal";
+import emailValidator from "../../../validators/email";
 export default {
   mixins: [swal],
   data() {
@@ -16,7 +17,7 @@ export default {
         email: "",
       },
       nameRules: [(v) => !!v || "Por favor informe o nome"],
-      emailRules: [(v) => /.+@.+/.test(v) || "Informe um e-mail válido"],
+      emailRules: [(v) => emailValidator(v) || "Informe um e-mail válido"],
       menu: false,
     };
   },
@@ -54,8 +55,8 @@ export default {
   },
   watch: {
     student: {
-      handler(student) {
-        if (!student.name || !/.+@.+/.test(student.email)) {
+      handler({ name, email }) {
+        if (!name || emailValidator(email)) {
           this.canUpdate = false;
         } else {
           this.canUpdate = true;
