@@ -131,13 +131,13 @@ class Students {
     try {
       const repo = Students.getRepo();
 
-      const fifteenDaysAgo = moment(Date.now())
+      const sevenDaysAgo = moment(Date.now())
         .subtract(7, "days")
         .format("YYYY-MM-DD");
 
-      const [students, count] = await repo.findAndCount({
+      const [_, count] = await repo.findAndCount({
         where: {
-          created_at: MoreThanOrEqual(fifteenDaysAgo),
+          created_at: MoreThanOrEqual(sevenDaysAgo),
         },
       });
 
